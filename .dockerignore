@@ -1,0 +1,36 @@
+# Docker ignore file
+# Prevent unnecessary files from being copied into the Docker image
+
+.git
+.gitignore
+.env
+.env.local
+.env.*.local
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+htmlcov
+node_modules
+npm-debug.log
+yarn-error.log
+.next
+out
+build
+dist
+*.log
+*.tmp
+*.bak
+README.md
+LICENSE
+CONTRIBUTING.md
+CHANGELOG.md
+.github

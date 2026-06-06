@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinPro AI — Unified AI Financial Intelligence Platform</title>
+  <!-- SEO Tags -->
+  <meta name="description" content="The world's first unified AI financial intelligence platform covering CA, CS, CMA, CFP, CIA, FRM, CFA, ACCA, and CPA designations.">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS Play CDN for premium visual styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/umd/lucide.min.js"></script>
+
+  <!-- Tailwind config for custom Outfit font family -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
+</head>
+<body class="h-full bg-slate-50 text-slate-900 font-sans antialiased overflow-hidden">
+  
+  <div class="flex h-screen overflow-hidden">
+    
+    <!-- Left Sidebar Menu -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-slate-100 flex flex-col flex-shrink-0 z-20 transition-all duration-300">
+      <!-- Logo Block -->
+      <div class="h-16 flex items-center px-6 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/10 text-white font-bold">
+            <i data-lucide="bar-chart-3" class="w-4.5 h-4.5"></i>
+          </div>
+          <div>
+            <p class="text-sm font-extrabold text-slate-800 tracking-tight leading-none mb-0.5">FinPro AI</p>
+            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Unified Finance</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module Routing Links -->
+      <nav class="flex-1 overflow-y-auto py-5 px-3.5 space-y-1">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <i data-lucide="home" class="w-4 h-4"></i> Home Dashboard
+        </button>
+
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3.5 pt-5 pb-1">AI Modules</p>
+
+        <!-- Module Iterators -->
+        <button onclick="switchTab('ca')" id="nav-ca" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-sm border border-emerald-100/50"><i data-lucide="calculator" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CA — Tax & Audit</span>
+        </button>
+        
+        <button onclick="switchTab('cs')" id="nav-cs" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-stone-50 text-stone-600 flex items-center justify-center shadow-sm border border-stone-100/50"><i data-lucide="building-2" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CS — Corporate Law</span>
+        </button>
+
+        <button onclick="switchTab('cma')" id="nav-cma" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-lime-50 text-lime-600 flex items-center justify-center shadow-sm border border-lime-100/50"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CMA — Cost Sheet</span>
+        </button>
+
+        <button onclick="switchTab('cfp')" id="nav-cfp" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm border border-blue-100/50"><i data-lucide="target" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CFP — Financial Plan</span>
+        </button>
+
+        <button onclick="switchTab('cia')" id="nav-cia" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shadow-sm border border-orange-100/50"><i data-lucide="shield" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CIA — Internal Audit</span>
+        </button>
+
+        <button onclick="switchTab('frm')" id="nav-frm" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center shadow-sm border border-pink-100/50"><i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">FRM — Risk Management</span>
+        </button>
+
+        <button onclick="switchTab('cfa')" id="nav-cfa" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shadow-sm border border-amber-100/50"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CFA — Investments</span>
+        </button>
+
+        <button onclick="switchTab('acca')" id="nav-acca" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-sm border border-indigo-100/50"><i data-lucide="globe" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">ACCA — Global IFRS</span>
+        </button>
+
+        <button onclick="switchTab('cpa')" id="nav-cpa" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+          <div class="w-6 h-6 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shadow-sm border border-sky-100/50"><i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i></div>
+          <span class="flex-1 truncate">CPA — US GAAP & Tax</span>
+        </button>
+
+        <div class="border-t border-slate-100 pt-4 mt-4 space-y-1">
+          <button onclick="switchTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Saved Reports
+          </button>
+          <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-all text-left">
+            <i data-lucide="settings" class="w-4 h-4"></i> Profile & API keys
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mock User Profile Footer Menu -->
+      <div class="border-t border-slate-100 p-4 relative">
+        <button onclick="toggleProfileDropdown()" class="w-full flex items-center gap-2.5 p-1 rounded-lg hover:bg-slate-50 transition-colors text-left focus:outline-none">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shadow-inner">
+            FP
+          </div>
+          <div class="flex-grow min-w-0">
+            <p class="text-xs font-bold text-slate-800 truncate leading-none">FinPro Assessee</p>
+            <p class="text-[10px] text-slate-400 mt-0.5">Enterprise Core Plan</p>
+          </div>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+        </button>
+
+        <div id="profile-dropdown" class="hidden absolute bottom-16 left-4 right-4 bg-white border border-slate-200 rounded-xl shadow-xl py-1.5 z-30 animate-slide-up">
+          <div class="px-3.5 py-2 border-b border-slate-100">
+            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Account ID</p>
+            <p class="text-[11px] text-slate-700 font-semibold truncate">admin@finpro-sandbox.ai</p>
+          </div>
+          <button onclick="switchTab('settings'); toggleProfileDropdown();" class="w-full flex items-center gap-2 px-3.5 py-2 text-xs text-slate-600 hover:bg-slate-50 transition-all text-left">
+            <i data-lucide="credit-card" class="w-3 h-3"></i> Manage Subscription
+          </button>
+          <button onclick="toggleProfileDropdown();" class="w-full flex items-center gap-2 px-3.5 py-2 text-xs text-rose-600 hover:bg-rose-50 transition-all text-left">
+            <i data-lucide="log-out" class="w-3 h-3"></i> Lock Sandbox Mode
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel Area -->
+    <main class="flex-1 overflow-y-auto flex flex-col relative z-10">
+      
+      <!-- Top header bar -->
+      <div class="h-16 bg-white border-b border-slate-100 flex items-center px-6 gap-4 sticky top-0 z-10">
+        <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 focus:outline-none">
+          <i data-lucide="menu" class="w-4.5 h-4.5"></i>
+        </button>
+        <div class="flex-grow"></div>
+        <div class="flex items-center gap-2.5">
+          <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Sandbox Autopilot Active
+          </span>
+          <div class="w-px h-4 bg-slate-200"></div>
+          <i data-lucide="book-open" class="w-4 h-4 text-slate-400"></i>
+          <span class="text-[10px] text-slate-400 font-bold">Reports auto-saved locally</span>
+        </div>
+      </div>
+
+      <!-- Main child content viewport -->
+      <div class="p-6 flex-1 overflow-y-auto">
+
+        <!-- A. HOMEPAGE TAB -->
+        <div id="tab-dashboard" class="tab-pane max-w-5xl mx-auto space-y-7 animate-slide-up">
+          <!-- Dynamic Header Banner -->
+          <div class="bg-gradient-to-tr from-slate-900 via-slate-800 to-indigo-950 rounded-3xl p-6 md:p-8 text-white relative overflow-hidden shadow-lg border border-slate-800">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl -z-10"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+              <div class="space-y-2">
+                <span class="text-[10px] font-bold tracking-widest text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full uppercase inline-flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-3 h-3 animate-pulse"></i> Sandbox Command Center
+                </span>
+                <h1 class="text-xl md:text-3xl font-extrabold tracking-tight">FinPro AI Financial Intelligence</h1>
+                <p class="text-xs text-slate-400 max-w-xl leading-relaxed">
+                  FastAPI and Vanilla JS consolidated workspace running with the expertise of 10 professional designations. Select any module inside the sidebar to begin.
+                </p>
+              </div>
+              <button onclick="switchTab('ca')" class="flex items-center gap-1.5 self-start md:self-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all">
+                Open CA Audit Suite <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex items-center justify-between hover:border-slate-300 transition-colors">
+              <div class="space-y-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Consolidated Health Score</p>
+                <p class="text-xl font-bold text-slate-800">78 / 100</p>
+                <p class="text-[10px] text-slate-500">Strong overall standing</p>
+              </div>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs text-indigo-600 bg-indigo-50">📊</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex items-center justify-between hover:border-slate-300 transition-colors">
+              <div class="space-y-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Next Pending Filing</p>
+                <p class="text-xl font-bold text-slate-800">GSTR-3B</p>
+                <p class="text-[10px] text-slate-500">Due in 4 days (20th)</p>
+              </div>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs text-emerald-600 bg-emerald-50">📅</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex items-center justify-between hover:border-slate-300 transition-colors">
+              <div class="space-y-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Saved AI Reports</p>
+                <p id="saved-reports-count" class="text-xl font-bold text-slate-800">0 Reports</p>
+                <p class="text-[10px] text-slate-500">Stored in persistent sandbox</p>
+              </div>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs text-slate-700 bg-slate-100">📝</div>
+            </div>
+          </div>
+
+          <!-- Dynamic scoring and calendars -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Health Scorecard -->
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="activity" class="text-indigo-600 w-4 h-4"></i>
+                  <span class="text-xs font-bold text-slate-800">Financial Health Score</span>
+                </div>
+                <span class="text-[9px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">CONSOLIDATOR</span>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-4">
+                <div class="md:col-span-5 flex flex-col items-center justify-center">
+                  <div class="relative w-28 h-28 flex items-center justify-center">
+                    <svg class="w-full h-full transform -rotate-90">
+                      <circle cx="56" cy="56" r="46" class="stroke-slate-100" stroke-width="8" fill="transparent" />
+                      <circle cx="56" cy="56" r="46" class="stroke-indigo-600" stroke-width="8" fill="transparent" stroke-dasharray="289" stroke-dashoffset="63" stroke-linecap="round" />
+                    </svg>
+                    <div class="absolute flex flex-col items-center">
+                      <span class="text-2xl font-black text-slate-800">78</span>
+                      <span class="text-[8px] font-bold text-slate-400">OUT OF 100</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-2 text-xs">
+                  <div>
+                    <div class="flex justify-between text-[10px] mb-0.5"><span>Tax Efficiency</span><span class="font-bold">17/20</span></div>
+                    <div class="w-full h-1 bg-slate-100 rounded"><div class="bg-emerald-500 h-1 rounded" style="width: 85%"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[10px] mb-0.5"><span>Compliance standing</span><span class="font-bold">14/20</span></div>
+                    <div class="w-full h-1 bg-slate-100 rounded"><div class="bg-indigo-500 h-1 rounded" style="width: 70%"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[10px] mb-0.5"><span>Cost Controls</span><span class="font-bold">18/20</span></div>
+                    <div class="w-full h-1 bg-slate-100 rounded"><div class="bg-lime-600 h-1 rounded" style="width: 90%"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[10px] mb-0.5"><span>Risk Buffer</span><span class="font-bold">15/20</span></div>
+                    <div class="w-full h-1 bg-slate-100 rounded"><div class="bg-pink-600 h-1 rounded" style="width: 75%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Compliance Deadlines -->
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden p-5 flex flex-col">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="calendar" class="text-emerald-600 w-4 h-4"></i>
+                  <span class="text-xs font-bold text-slate-800">Unified Compliance Calendar</span>
+                </div>
+                <button onclick="toggleAddDeadline()" class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded"><i data-lucide="plus" class="w-2.5 h-2.5 inline mr-0.5"></i>Add</button>
+              </div>
+
+              <!-- Collapsible Deadline Form -->
+              <div id="add-deadline-form" class="hidden py-3 border-b border-slate-100 space-y-2 text-xs bg-slate-50/50 p-2.5 rounded-lg my-2">
+                <input type="text" id="deadline-title" placeholder="Filing / Task name..." class="w-full px-2 py-1 rounded border border-slate-200 focus:outline-none">
+                <div class="grid grid-cols-2 gap-2">
+                  <input type="date" id="deadline-date" class="px-2 py-1 rounded border border-slate-200 focus:outline-none">
+                  <select id="deadline-module" class="px-2 py-1 rounded border border-slate-200 focus:outline-none">
+                    <option value="ca">CA Module</option>
+                    <option value="cs">CS Module</option>
+                    <option value="cma">CMA Module</option>
+                  </select>
+                </div>
+                <div class="flex justify-end gap-1.5">
+                  <button type="button" onclick="toggleAddDeadline()" class="px-2 py-1 text-[9px] text-slate-400">Cancel</button>
+                  <button type="button" onclick="addDeadline()" class="px-2.5 py-1 text-[9px] text-white bg-emerald-600 rounded">Save Task</button>
+                </div>
+              </div>
+
+              <div id="deadlines-container" class="divide-y divide-slate-100 overflow-y-auto max-h-[170px] pt-1">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Founder Mode Checklist Card -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-slate-300 space-y-4 shadow-sm relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-sm font-semibold text-white">Cross-Module &quot;Founder Mode&quot; Workspace</h3>
+                <p class="text-[10px] text-slate-400">Consolidated startup legal/tax checkpoints roadmap</p>
+              </div>
+              <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">AUTOPILOT</span>
+            </div>
+            <div class="divide-y divide-slate-800 text-xs">
+              <div class="py-2.5 flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-white">Draft Incorporation Memorandum (MOA/AOA)</p>
+                  <p class="text-[10px] text-slate-400 mt-0.5">Corporate legal framework requirements under Section 4 of Companies Act, 2013 (CS Module).</p>
+                </div>
+              </div>
+              <div class="py-2.5 flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-white">GST Registration and Statutory Setup</p>
+                  <p class="text-[10px] text-slate-400 mt-0.5">Central Tax Registration under Section 22 of the CGST Act (CA Module).</p>
+                </div>
+              </div>
+              <div class="py-2.5 flex items-start gap-3">
+                <div class="w-3.5 h-3.5 rounded-full border border-slate-600 flex-shrink-0 mt-0.5"></div>
+                <div>
+                  <p class="font-bold text-white">CAS-4 Product Costing Sheets</p>
+                  <p class="text-[10px] text-slate-400 mt-0.5">Structure prime manufacturing cost sheets for tax/margin planning (CMA Module).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B. DYNAMIC MODULES TAB -->
+        <div id="tab-module" class="tab-pane hidden max-w-4xl mx-auto space-y-6 animate-slide-up">
+          <!-- Module Title Card -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex items-center gap-4">
+            <div id="module-header-icon" class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <i data-lucide="calculator" class="w-5.5 h-5.5 text-emerald-600"></i>
+            </div>
+            <div>
+              <h1 id="module-title" class="text-base font-bold text-slate-800 leading-none">CA — Tax & Audit</h1>
+              <p id="module-desc" class="text-xs text-slate-500 mt-1">AI-powered audits and multiregime tax computations.</p>
+              <p id="module-laws" class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wide mt-0.5">CITATIONS: Income Tax Act 1961</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions Grid -->
+          <div id="quick-actions-container" class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+            <!-- Injected via JavaScript -->
+          </div>
+
+          <!-- Input query box -->
+          <form id="query-form" onsubmit="handleQuerySubmit(event)" class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+            <textarea
+              id="query-input"
+              placeholder="Describe the financial case or data parameters..."
+              class="w-full px-5 pt-5 pb-3 text-xs text-slate-700 placeholder-slate-400 resize-none outline-none min-h-[100px] border-b border-slate-100"
+            ></textarea>
+
+            <!-- File dropzone drawer uploader -->
+            <div id="uploader-drawer" class="hidden px-5 py-4 border-b border-slate-100 bg-slate-50/40">
+              <div id="dropzone" ondragover="handleDrag(event)" ondragleave="handleDrag(event)" ondrop="handleDrop(event)" onclick="triggerFileInput()" class="border-2 border-dashed border-slate-200 hover:border-slate-300 rounded-xl p-4 bg-white text-center cursor-pointer transition-all flex flex-col items-center gap-1.5">
+                <input type="file" id="file-input" multiple accept=".pdf,.xlsx,.csv" onchange="handleFileChange(event)" class="hidden">
+                <i data-lucide="upload-cloud" class="w-7 h-7 text-slate-400"></i>
+                <p class="text-[11px] font-bold text-slate-700">Drag & drop files or click to upload</p>
+                <p class="text-[9px] text-slate-400">PDF, CSV or Excel (Max 2 files for horizontal YoY comparison)</p>
+              </div>
+              <div id="files-list" class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
+                <!-- Uploaded file items injected here -->
+              </div>
+            </div>
+
+            <!-- Form footer controllers -->
+            <div class="flex items-center justify-between px-5 py-3.5 bg-slate-50/60">
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="toggleUploaderDrawer()" id="uploader-toggle-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition-colors focus:outline-none">
+                  <i data-lucide="paperclip" class="w-3.5 h-3.5"></i> Attach Financial Statements
+                </button>
+              </div>
+              <button type="submit" id="generate-btn" class="flex items-center gap-1.5 px-4.5 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-all focus:outline-none">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Generate AI Report
+              </button>
+            </div>
+          </form>
+
+          <!-- Streaming Report Console -->
+          <div id="output-container" class="hidden bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm animate-slide-up">
+            <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/20">
+              <div class="flex items-center gap-2">
+                <span class="relative flex h-2 w-2">
+                  <span id="output-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span id="output-dot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span id="output-status" class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Executing Calculations...</span>
+              </div>
+              <div id="output-actions" class="hidden flex items-center gap-2">
+                <button onclick="saveActiveReport()" id="save-report-btn" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition-all"><i data-lucide="save" class="w-3 h-3"></i> Save Report</button>
+                <button onclick="downloadActiveReportPDF()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 transition-all"><i data-lucide="download" class="w-3.5 h-3.5"></i> Download PDF</button>
+              </div>
+            </div>
+            
+            <!-- Legal Copilot Liability Warning (Resolving core challenges) -->
+            <div id="legal-warning-box" class="px-5 py-3.5 bg-rose-50 border-b border-rose-100 flex items-start gap-3">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-[10px] font-bold text-rose-800 uppercase tracking-wide">AI Financial Copilot Liability Waiver</p>
+                <p class="text-[9.5px] text-rose-600 leading-normal mt-0.5">
+                  <strong>DISCLAIMER</strong>: Computations, checklists, and minutes provided below are automated blueprints under our copilot terms. Under Section 137/44AB, this report **MUST be audited and formally signed off by a licensed professional** before submission to tax or regulatory authorities. FinPro AI is fully indemnified from calculation errors.
+                </p>
+              </div>
+            </div>
+
+            <!-- Report Body -->
+            <div id="report-output-box" class="p-6 max-h-[600px] overflow-y-auto bg-white markdown-body">
+              <!-- Injected dynamically and parsed via marked.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- C. REPORTS HISTORY TAB -->
+        <div id="tab-reports" class="tab-pane hidden max-w-5xl mx-auto space-y-6 animate-slide-up">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center"><i data-lucide="file-text" class="w-4.5 h-4.5"></i></div>
+            <div>
+              <h1 class="text-base font-bold text-slate-800">Saved Financial Intelligence History</h1>
+              <p class="text-xs text-slate-500">Persistent list of reports verified and saved locally in your sandbox</p>
+            </div>
+          </div>
+
+          <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- List items injected via JS -->
+          </div>
+        </div>
+
+        <!-- D. SETTINGS CONFIG TAB -->
+        <div id="tab-settings" class="tab-pane hidden max-w-4xl mx-auto space-y-6 animate-slide-up">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center"><i data-lucide="settings" class="w-4.5 h-4.5"></i></div>
+            <div>
+              <h1 class="text-base font-bold text-slate-800">Workspace Settings & API Keys</h1>
+              <p class="text-xs text-slate-500">Configure key values to transition your server from Sandbox to Live models</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 space-y-6">
+              <!-- Keys Box -->
+              <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+                <h3 class="text-xs font-bold text-slate-800 pb-2 border-b border-slate-100"><i data-lucide="key" class="w-3.5 h-3.5 inline mr-1 text-indigo-600"></i>Engine Keys</h3>
+                <div class="space-y-3">
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1">OpenRouter API Key</label>
+                    <input type="password" id="settings-api-key" value="sk-or-v1-your-openrouter-api-key-configured-in-env" class="w-full text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-slate-400">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-1">Supabase Project URL</label>
+                    <input type="text" value="https://your-supabase-project.supabase.co" class="w-full text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-slate-400">
+                  </div>
+                  <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl flex items-start gap-2.5">
+                    <i data-lucide="info" class="w-4 h-4 text-indigo-600 mt-0.5 flex-shrink-0"></i>
+                    <p class="text-[9.5px] text-slate-500 leading-normal">
+                      <strong>To change keys permanently</strong>, edit the <code class="bg-white px-1 border rounded">.env</code> file at the root of the project. The Python server will automatically boot and bind to the newly defined OpenRouter parameters.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Billing Box -->
+            <div class="space-y-6">
+              <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+                <h3 class="text-xs font-bold text-slate-800 pb-2 border-b border-slate-100"><i data-lucide="credit-card" class="w-3.5 h-3.5 inline mr-1 text-indigo-600"></i>Active Plan</h3>
+                <div class="p-3.5 border border-indigo-200 bg-indigo-50/20 rounded-xl">
+                  <h4 class="text-xs font-bold text-slate-800">Enterprise Sandbox</h4>
+                  <p class="text-[9px] text-slate-400 font-semibold mt-0.5">Indian & Global Designations</p>
+                  <div class="border-t border-slate-100 mt-3.5 pt-2 flex items-center justify-between text-[10px]">
+                    <span class="text-slate-500">Unlimited Reports</span>
+                    <span class="font-bold text-indigo-600">₹1,499/mo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Unified JS Script Handler -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

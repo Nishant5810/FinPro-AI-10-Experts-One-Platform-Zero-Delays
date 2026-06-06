@@ -1,0 +1,158 @@
+/* Custom stylesheet for FinPro AI (Python + Vanilla JS Stack) */
+
+/* Slide Entry Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Premium Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* slate-300 */
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; /* slate-400 */
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dynamic Tab Visibility */
+.tab-pane {
+  display: none;
+}
+.tab-pane:not(.hidden) {
+  display: block;
+}
+
+/* Markdown Structured Elements Styling inside Output Box */
+.markdown-body {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #334155; /* slate-700 */
+}
+
+.markdown-body h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a; /* slate-900 */
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b; /* slate-800 */
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-body h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body p {
+  margin-bottom: 0.875rem;
+}
+
+.markdown-body strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Table Renderings inside markdown */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.75rem;
+}
+
+.markdown-body th {
+  background-color: #f8fafc; /* slate-50 */
+  color: #1e293b;
+  font-weight: 600;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.markdown-body td {
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #e2e8f0;
+  color: #475569; /* slate-600 */
+}
+
+.markdown-body tr:nth-child(even) {
+  background-color: #f8fafc/50;
+}
+
+/* Bullet list and checklist parsers */
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.375rem;
+}
+
+.markdown-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  background-color: #f1f5f9; /* slate-100 */
+  color: #0f172a;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* Alerts box style */
+.markdown-body blockquote {
+  border-left: 4px solid #818cf8; /* indigo-400 */
+  background-color: #f8fafc;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1rem 0;
+}
+
+.markdown-body blockquote p {
+  margin-bottom: 0;
+  font-weight: 500;
+}
